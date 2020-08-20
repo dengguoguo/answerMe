@@ -11,14 +11,14 @@
     {% for question in questions %}
         <li>
             <div class="avatar-group">
-                <img src="{{ url_for('static', filename='images/logo02.jpg') }}"
+                <img src="{{ url_for('static', filename='images/dAvatar.jpg') }}"
                      alt="" class="avatar">
             </div>
             <div class="questions-group">
-                <p class="questions-title"><a href="{{ url_for('detail', question_id=question.id) }}">{{ question.title }}</a></p>
+                <p class="questions-title"><a href="{{ url_for('detail', question_id=question.qid) }}">{{ question.title }}</a></p>
                 <p class="questions-content">{{ question.content }}</p>
                 <div class="questions-info">
-                    <span class="questions-author">{{ question.author.username }}</span>
+                    <span class="questions-author">{{ question.user_info[0].nick_name }}</span>
                     <span class="questions-time">{{ question.create_time }}</span>
                 </div>
             </div>

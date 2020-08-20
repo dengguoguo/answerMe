@@ -1,33 +1,47 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 #author dengguo
-from exts import db
-from datetime import datetime
 
-class User(db.Model):
-    __tablename__ = 'user'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    phonenumber = db.Column(db.String(11), nullable=False)
-    username = db.Column(db.String(50), nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+# ----------------
+#  mongodb modules
+# ----------------
 
-class Question(db.Model):
-    __tablename__ = 'question'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    title = db.Column(db.String(100), nullable=False)
-    content = db.Column(db.Text, nullable=False)
-    create_time = db.Column(db.DateTime, default=datetime.now)
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+"""
+users
+    uid            string            # user id
+    phone_number   string            # register phone
+    nick_name      string            # nickname
+    password       string            # password
+    secret_info    json           # secret info
+        {
+            identify   boo         # if identify
+            name        string       # name
+            gender     enum         # gender
+            id_card     string      # id card
+        }
+    country        string            # country
+    province       string            # province
+    create_time  string              # register time
+    update_time    string            # update time
 
-    author = db.relationship('User', backref=db.backref('questions'))
 
-class Answer(db.Model):
-    __tablename__ = 'answer'
-    id = db.Column(db.Integer, primary_key=True, autoincrement=True)
-    comment = db.Column(db.Text, nullable=False)
-    question_id = db.Column(db.Integer, db.ForeignKey('question.id'))
-    author_id = db.Column(db.Integer, db.ForeignKey('user.id'))
-    create_time = db.Column(db.DateTime, default=datetime.now)
+questions
+    uid            string            # user id
+    qid            string            # question id
+    title          string            # question title
+    content        string            # question content
+    create_time    string            # publish time
+    update_time    string            # update time
 
-    question = db.relationship('Question', backref=db.backref('answers'))
-    author = db.relationship('User', backref=db.backref('answers', order_by=id.desc()))
+
+answers
+    uid            string            # user id
+    qid            string            # question id
+    aid            string            # answer id
+    comment         string          # comment
+    create_time    string            # publish time
+    update_time    string            # update time
+
+"""
+
+
